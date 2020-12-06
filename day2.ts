@@ -6,16 +6,16 @@ function readData(fileName: string): {
   data: Array<{range: number[]; letter: string; password: string}>
 }
 {
-  var data: Array<{range: number[]; letter: string; password: string}> = [];
-  var reader = rd.createInterface(fs.createReadStream(fileName));
+  const data: Array<{range: number[]; letter: string; password: string}> = [];
+  const reader = rd.createInterface(fs.createReadStream(fileName));
   reader.on("line", (l: string) => {
-    var tokens = l.split(' ')
+    const tokens = l.split(' ')
     // prepare the range in form: "1-3" to [1, 3]
-    var range = tokens[0].split('-').map(Number)
+    const range = tokens[0].split('-').map(Number)
     // prepare the letter by removing the colon "a:" to "a"
-    var letter = tokens[1].replace(":", "")
+    const letter = tokens[1].replace(":", "")
     // grab the password, no changes necessary
-    var password = tokens[2]
+    const password = tokens[2]
     // add the elements to the data array
     data.push({
       range: range,
@@ -27,12 +27,12 @@ function readData(fileName: string): {
 }
 
 function part1(fileName: string) {
-  var validPasswords = 0
-  var input = readData(fileName)
+  let validPasswords = 0
+  const input = readData(fileName)
 
   input.reader.on("close", () => {
-    for(let element of input.data) {
-      var occurrences = (element.password.match(new RegExp(element.letter, "g")) || []).length
+    for(const element of input.data) {
+      const occurrences = (element.password.match(new RegExp(element.letter, "g")) || []).length
       if (occurrences < element.range[0] || occurrences > element.range[1]) {
         continue
       }
@@ -43,15 +43,15 @@ function part1(fileName: string) {
 }
 
 function part2(fileName: string) {
-  var validPasswords = 0
-  var input = readData(fileName)
+  let validPasswords = 0
+  const input = readData(fileName)
 
   input.reader.on("close", () => {
-    for(let element of input.data) {
-      var min = element.range[0]
-      var max = element.range[1]
-      var chars = element.password.split("")
-      var atPosition = 0
+    for(const element of input.data) {
+      const min = element.range[0]
+      const max = element.range[1]
+      const chars = element.password.split("")
+      let atPosition = 0
       if (chars[min-1] == element.letter) {
         atPosition++
       }
