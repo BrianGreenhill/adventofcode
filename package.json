@@ -1,0 +1,25 @@
+{
+  "name": "aoc-day2",
+  "version": "1.0.0",
+  "description": "I'm trying to do this with many different programming languages. A rule I'll set is that I can't use the same language two days in a row.",
+  "main": "day2.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrianGreenhill/adventofcode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrianGreenhill/adventofcode/issues"
+  },
+  "homepage": "https://github.com/BrianGreenhill/adventofcode#readme",
+  "dependencies": {
+    "eslint": "^7.14.0",
+    "file-system": "^2.2.2",
+    "fs": "^0.0.1-security",
+    "readline": "^1.3.0"
+  }
+}
