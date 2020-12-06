@@ -68,5 +68,5 @@ function part2(fileName: string) {
 }
 
 console.log("Advent of Code Day 2")
-part1("data/day2")
-part2("data/day2")
+part1("day2/data")
+part2("day2/data")

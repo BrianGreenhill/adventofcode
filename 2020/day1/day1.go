@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// read the datafile to bytes
-	bytes, err := ioutil.ReadFile("data/day1")
+	bytes, err := ioutil.ReadFile("day1/data")
 	if err != nil {
 		log.Fatal(err)
 	}

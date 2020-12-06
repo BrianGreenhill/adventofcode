@@ -1,6 +1,4 @@
-# Advent of Code 2020
+# Advents of Code
 
-I'm trying to do this with many different programming languages. A rule I'll set is
-that I can't use the same language two days in a row.
-
-- [x] day 1 (golang)
+## Usage
+Run `make day#` or `make all` from the year directory to run the solutions.
