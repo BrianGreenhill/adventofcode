@@ -1,4 +1,4 @@
-.PHONY: day1 day2 day3 day4 all
+.PHONY: day1 day2 day3 day4 day5 all
 
 day1:
 	@echo "AOC 2020 - Day 1"
@@ -16,4 +16,8 @@ day4:
 	@echo "AOC 2020 - Day 4"
 	@cd day4 && cargo run src/data
 
-all: day1 day2 day3 day4
+day5:
+	@echo "AOC 2020 - Day 5"
+	@cd day5 && python day5.py
+
+all: day1 day2 day3 day4 day5
