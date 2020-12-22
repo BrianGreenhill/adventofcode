@@ -20,4 +20,4 @@ AOC_DIR=/location/of/aoc/root ./start_day.rb <year> <day_number> <session_id>
 - [x] day 6 (C)
 - [x] day 7 (python)
 - [x] day 8 (python) !Cheated!
-- [] day ? (R)
+- [x] day 9 (python) !Cheated again!
