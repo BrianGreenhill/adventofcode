@@ -5,19 +5,19 @@ require 'uri'
 require 'net/https'
 require 'fileutils'
 
-# TODO: create template file for python
-
 # This script will pull the latest input (if available) from
 # https://adventofcode.com/<year>/day/<day>/input
 # and put it into a <year>/<day>/input file. It then uses a template based on
 # an optional flag for the programming language (default: python)
 #
-# usage: ./start_day.rb <year> <day>
+# usage: ./start_day.rb <year> <day> <session_id> (optional)<language>
 MAX_YEAR = 2020
 MAX_DAY = 24
 NUM_ARGS = 3
+DEFAULT_LANG = 'py'
 error = false
-puts 'missing <year>, <day>, and/or <session_id> arguments' unless ARGV.length == NUM_ARGS
+
+puts 'missing <year>, <day>, and/or <session_id> arguments' unless ARGV.length >= NUM_ARGS
 if ARGV[0].to_i > MAX_YEAR
   error = true
   puts 'invalid year'
@@ -25,6 +25,17 @@ end
 if ARGV[1].to_i > MAX_DAY
   error = true
   puts 'invalid day'
+end
+
+lang = if ARGV.length < 3
+         DEFAULT_LANG
+       else
+         ARGV[3]
+       end
+
+if lang != 'go' && lang != 'py'
+  error = true
+  puts 'invalid language: only go and (py)thon supported'
 end
 
 exit unless error == false
@@ -35,7 +46,7 @@ day = ARGV[1]
 session_id = ARGV[2]
 
 input_url = URI("https://adventofcode.com/#{year}/day/#{day}/input")
-puts "creating #{year}/day#{day}/day#{day}.py ..."
+puts "creating #{year}/day#{day}/day#{day}.#{lang} ..."
 
 # pull adventofcode.com/year/day/day_num/input to file
 puts "pulling #{input_url} ..."
@@ -61,11 +72,11 @@ end
 # create year/day/day_num structure (if not exists)
 AOC_DIR = ENV['AOC_DIR']
 dir_name = "#{AOC_DIR}/#{year}/day#{day}"
-file_name = "#{dir_name}/day#{day}.py"
+file_name = "#{dir_name}/day#{day}.#{lang}"
 
 Dir.mkdir(dir_name) unless File.exist?(dir_name)
 File.open(file_name, 'w') unless File.exist?(file_name)
 File.open("#{dir_name}/input", 'w') { |file| file.write(puzzle_input) }
-FileUtils.cp('./templates/puzzle.py', file_name)
+FileUtils.cp("./templates/puzzle.#{lang}", file_name)
 
 puts "Created input and solution file in #{dir_name}. Good luck!"
