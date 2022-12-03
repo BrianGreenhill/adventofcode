@@ -30,7 +30,7 @@ func main() {
 		log.Fatal(err)
 	}
 	if err := part2(pairs); err != nil {
-
+		log.Fatal(err)
 	}
 }
 
@@ -116,10 +116,6 @@ func part1(pairs []pair) error {
 			p2.turn = false
 		}
 		scoreRound(p1, p2)
-		// fmt.Println("round", i+1)
-		// fmt.Println(p1.id, p1.currentChoice, p1.score)
-		// fmt.Println(p2.id, p2.currentChoice, p2.score)
-		// fmt.Println("")
 	}
 
 	fmt.Println("part 1")
@@ -133,7 +129,6 @@ func scoreRound(p, o *player) {
 	if lookup[p.currentChoice] == lookup[o.currentChoice] {
 		p.score += draw + lookup[p.currentChoice]
 		o.score += draw + lookup[o.currentChoice]
-		//fmt.Println(p.id, "draw")
 		return
 	}
 
@@ -143,31 +138,25 @@ func scoreRound(p, o *player) {
 		if o.currentChoice == "Y" || o.currentChoice == "B" {
 			p.score += lost + lookup["A"]
 			o.score += win + lookup["B"]
-			//fmt.Println(p.id, "lost")
 		} else {
 			p.score += win + lookup["A"]
 			o.score += lost + lookup["B"]
-			//fmt.Println(p.id, "won")
 		}
 	case "B", "Y":
 		if o.currentChoice == "C" || o.currentChoice == "Z" {
 			p.score += lost + lookup["B"]
 			o.score += win + lookup["C"]
-			//fmt.Println(p.id, "won")
 		} else {
 			p.score += win + lookup["B"]
 			o.score += lost + lookup["C"]
-			//fmt.Println(p.id, "won")
 		}
 	case "C", "Z":
 		if o.currentChoice == "A" || o.currentChoice == "X" {
 			p.score += lost + lookup["C"]
 			o.score += win + lookup["A"]
-			//fmt.Println(p.id, "lost")
 		} else {
 			p.score += win + lookup["C"]
 			o.score += lost + lookup["A"]
-			//fmt.Println(p.id, "won")
 		}
 	default:
 		log.Fatalf("not a valid choice %s", p.currentChoice)
