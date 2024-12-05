@@ -45,22 +45,23 @@ func day1(in []string) error {
 	sort.Float64s(left)
 	sort.Float64s(right)
 
+	// day 1 - a
 	total := 0.0
-	simScore := 0.0
-
 	for i := 0; i < len(left); i++ {
-		appearsCount := 0
-		for j := 0; j < len(right); j++ {
-			if left[i] == right[j] {
-				appearsCount++
-			}
-		}
-		simScore += left[i] * float64(appearsCount)
 		total += math.Abs(left[i] - right[i])
 	}
 
-	// similarity score
-	for i := 0; i < len(left); i++ {
+	// day 1 - b
+	simScore := 0.0
+	frequencyMap := map[float64]int{}
+	for _, value := range right {
+		frequencyMap[value]++
+	}
+
+	for _, value := range left {
+		if count, exists := frequencyMap[value]; exists {
+			simScore += value * float64(count)
+		}
 	}
 
 	fmt.Println("a", int(total))
