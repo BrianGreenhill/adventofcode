@@ -4,19 +4,82 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
 )
 
+var debug = false
+
 func main() {
-	// if err := day1(os.Args); err != nil {
-	// 	panic(err)
-	// }
 	_ = day1(os.Args)
-	if err := day2(os.Args); err != nil {
+	_ = day2(os.Args)
+	if err := day3(os.Args); err != nil {
 		panic(err)
 	}
+}
+
+func day3(in []string) error {
+	testTarget := `xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))`
+	c, err := readInput(in)
+	if err != nil {
+		return err
+	}
+
+	if debug {
+		// convert to byte slice
+		b := []byte{}
+		b = append(b, []byte(testTarget)...)
+		c = b
+	}
+	res := 0
+	exp := `mul\((\d{1,3}),(\d{1,3})\)`
+	r := regexp.MustCompile(exp)
+	match := r.FindAllStringSubmatch(string(c), -1)
+	for _, m := range match {
+		int1, err := strconv.Atoi(m[1])
+		if err != nil {
+			return err
+		}
+		int2, err := strconv.Atoi(m[2])
+		if err != nil {
+			return err
+		}
+
+		res += int1 * int2
+	}
+	fmt.Println("day 3 - a", res)
+
+	res = 0
+	exp = `mul\((\d{1,3}),(\d{1,3})\)|do\(\)|don't\(\)`
+	r = regexp.MustCompile(exp)
+	match = r.FindAllStringSubmatch(string(c), -1)
+	do := true
+	for _, m := range match {
+		if m[0] == "do()" || m[0] == "don't()" {
+			do = m[0] == "do()"
+			continue
+		}
+
+		if !do {
+			continue
+		}
+
+		int1, err := strconv.Atoi(m[1])
+		if err != nil {
+			return err
+		}
+		int2, err := strconv.Atoi(m[2])
+		if err != nil {
+			return err
+		}
+
+		res += int1 * int2
+	}
+	fmt.Println("day 3 - b", res)
+
+	return nil
 }
 
 // checkIsSafe verifies if a report is safe without removing any levels.
